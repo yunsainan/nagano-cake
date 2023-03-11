@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="offset-1">
+      <h5><span class="px-3 bg-secondary text-light">商品詳細</span></h5>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-2 offset-2">
+      <%= image_tag @item.get_item_image(150,200), class: "d-block ml-auto" %>
+    </div>
+    
+    <div class="col-5">
+      <table>
+        <thead>
+        <th style="width 30%"></th>
+        <th style="width 70%"></th>
+        </thead>
+        <thody>
+        <tr>
+            <td>商品名</td>
+            <td><%= @item.name %></td>
+        </tr>
+        <tr>
+            <td class="align-top">商品説明</td>
+            <td><%= @item.introduction %></td>
+        </tr>
+        <tr>
+            <td>ジャンル</td>
+            <td><%= @item.genre.name %></td>
+        </tr>
+        <tr>
+            <td>税込価格<br>（税込価格）</td>
+        </tr>
+        <tr>
+          <td>販売ステータス</td>
+          <td>
+            <% if @item.is_active %>
+              <strong class="align-moddle text-success"><%= @item,is_active ? "販売中" : "販売停止中" %></strong>
+            <% else %>
+              <strong class="align-moddle text-secondary"><%= @item.is_active ? "販売中" : "販売停止中" %></strong>
+            <% end %>
+          </td>
+        </tr>  
+        </thody>
+      </table>
+      <%= link_to "編集する",edit_admin_item_path(@item.id), class: "offset-3 mt-3 py-2 px-4 btn btn-success" %>
+    </div>
+  </div>
+</div>

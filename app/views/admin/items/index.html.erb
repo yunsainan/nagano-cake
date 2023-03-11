@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="offset-1 my-auto ml-5">
+      <h5 class="px-3 mb-0 bg-secondary text-light">商品一覧</h5>
+    </div>
+    <div class="col-1 ml-auto mr-5">
+      <%= link_to new_admin_item_path, class: "p-0 btn btn-light btn-outline-dark border rounded-circle bg-secondary" do %>
+        <h4 class="m-0 p-1 d-flex align-items-center text-dark bg-light rounded-circle font-weight-bold btn-shadow" style="weght: 30px; height: 30px;">+</h4>
+      <% end %>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+    <table class="table table-borderless border-top border-bottom borborder-secondary">
+        <thead class="table-sm table-secondary">
+          <tr>
+            <th style="width: 10%">商品ID</th>
+            <th style="width: 30%">商品名</th>
+            <th style="width: 10%">税抜価格</th>
+            <th style="width: 30%">ジャンル</th>
+            <th style="width: 20%">ステータス</th>
+          </tr>
+        </thead>
+        <% @items.each do |items| %>
+          <tbody>
+            <tr>
+              <td><%= items.id %></td>
+              <td>
+                <%= link_to admin_item_path(items.id), class: "text-body" do %>
+                  <%= items.name %>
+                <% end %>
+              </td>
+              <td><%= items.price.to_s(:delimited) %></td>
+              <td><%= items.genre.name %></td>
+              <td>
+                <% if items.is_active %>
+                  <strong class="align-moddle text-success"><%= items.is_active ? "販売中" : "販売停止中" %></strong>
+                <% else %>
+                  <strong class="align-moddle text-secondary"><%= items.is_active ? "販売中" : "販売停止中" %></strong>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+      <%= paginate @items %>
+    </div>
+  </div>
+</div>

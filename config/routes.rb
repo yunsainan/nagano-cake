@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :customers
-  devise_for :admins
-  get 'items/index'
-  get 'items/show'
-  root to: "homes#top"
+  root to: 'public/homes#top'
+
+
+  # URL /admin/sign_in ...
+  devise_for :admin, skip: [:registrations, :passwords] , controllers: {
+    sessions: "admin/sessions"
+  }
+  
+   # 管理者用
+  namespace :admin do
+    # top
+   get '/' => 'homes#top'
+   resources :genres, only: [:create, :index, :edit, :update ]
+  end
 end
