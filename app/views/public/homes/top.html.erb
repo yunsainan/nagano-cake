@@ -1,0 +1,43 @@
+<div class="container-fulled">
+  <div class="row mt-4">
+    <div class="col-8 mx-auto">
+      <div class="jumbtron">
+        <div class="row">
+          <div class="col-8 mx-auto text-center top-bg">
+            <p class="my-3">
+              ようこそ、ながのCAKEへ！<br>
+              このサイトは、ケーキ販売のECサイトになります。<br>
+              会員でない方も商品の閲覧ができますが、<br>
+              購入には会員登録が必要になります。<br>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row ml-1">
+        <h2>新着商品</h2>
+      </div>
+      <div class="row">
+        <% @items.each do |item| %>
+        <div class="col">
+          <%= link_to item_path(item.id), class:"text-body" do %>
+            <div class="row mx-1 bg-light">
+              <%= image_tag item.get_item_image(135,240), class: "d-block mx-auto" %>
+              </div>
+              <div class="row mt-2 ml-2">
+                <%= item.name %>
+              </div>
+              <div class="row mt-2 ml-2">
+                ¥<%= item.price.to_s(:delimited)%>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="col text-right mt-1 mb-3">
+          <%= link_to "全ての商品を見る >", items_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

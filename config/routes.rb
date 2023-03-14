@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   root to: 'public/homes#top'
 
 
@@ -9,8 +10,12 @@ Rails.application.routes.draw do
   
    # 管理者用
   namespace :admin do
-    # top
-   get '/' => 'homes#top'
-   resources :genres, only: [:create, :index, :edit, :update ]
+   # top
+    get '/' => 'homes#top'
+    resources :items, except: [:destroy ]
+    resources :genres, only: [:create, :index, :edit, :update ]
+    resources :customers, only: [:index, :show, :edit, :update ]
+    resources :orders, only: [:show, :update ]
+    resources :order_history_details, only: [:update]
   end
 end
