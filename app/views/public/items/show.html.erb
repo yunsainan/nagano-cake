@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row mx-3 mt-4">
+    <!--商品詳細-->
+    <div class="col-9 mx-auto">
+      <div class="row mt-3">
+        <!--商品画像-->
+        <div class="col-4 bg-white">
+          <%= image_tag @item.get_item_image(256,144), class: "d-block mx-auto" %>
+        </div>
+        <!--商品説明-->
+        <div class="col-7 ml-3">
+          <div class="row">
+            <h2><%= @item.name %></h2>
+          </div>
+          <div class="row">
+            <p><%= @item.introduction%></p>
+          </div>
+          <div class="row">
+            <h4><strong>¥<%= @item.with_tax_price.to_s(:delimited) %></strong></h4>
+            <p class="mb-0"><sub>(税込)</sub></p><!--税込は下付き文字-->
+          </div>
+          <div class="row mt-4">
+            <%= form_with model: @cart_item , url: cart_items_path, method: :post do |f| %>
+              <%= f.hidden_field :item_id, :value => @item.id %>
+              <!--個数選択-->
+              <%= f.select :amount, *[1..10], {autofocus: true}, {class: "px-4"} %>
+              <%= f.submit "カートに入れる", class: "ml-5 btn btn-md btn-success font-weight-bold" %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
