@@ -1,33 +1,102 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NaganoCakeApp</title>
+    <title>NaganoCake</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <script src="https://kit.fontawesome.com/7d4686f8ad.js" crossorigin="anonymous"></script>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <!-- ヘッダー -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <!-- ここのtext-light はほかのページリンク作成したら消す-->
+        <div class="container-fluid">
+          <%= link_to root_path, class: "navbar-brand" do %>
+            <h1 class="font-weight-lighter font-italic">nagano-cake</h1>
+          <% end %>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse navbar-expand-sm" id="navbarNavDropdown">
+            <div class="mr-lg-auto ml-lg-5">
+              <p class="mb-0 text-light">
+                <%if customer_signed_in?  %>
+                ようこそ、<%= current_customer.last_name %>さん！
+                <% end %>
+              </p>
+            </div>
+            <ul class="nav navbar-nav w-60 nav-justified  ml-auto">
+              <!-- admin サインイン -->
+              <% if admin_signed_in? %>
+                <li class="ml-lg-auto" style="width: 20%">
+                  <%= link_to "商品一覧", admin_items_path, class: "btn btn-outline-light text-light d-block w-90 ml-auto" %>
+                </li>
+                <li class="" style="width: 20%">
+                  <%= link_to "会員一覧", admin_customers_path, class: "btn btn-outline-light text-light d-block w-90 ml-auto" %>
+                </li>
+                <li class="" style="width: 20%">
+                  <%= link_to "注文一覧", admin_path, class: "btn btn-outline-light text-light d-block w-90 ml-auto" %>
+                </li>
+                <li class="" style="width: 20%">
+                  <%= link_to "ジャンル一覧", admin_genres_path, class: "btn btn-outline-light text-light d-block w-90 ml-auto" %>
+                </li>
+                <li class="" style="width: 20%">
+                  <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-outline-light text-light d-block w-90 ml-auto" %>
+                </li>
+              <!-- customer サインイン -->
+              <% elsif customer_signed_in? %>
+                <li class="ml-lg-auto"  style="width: 20%">
+                  <%= link_to "マイページ", customers_my_page_path, class: 'btn btn-outline-light text-light d-block w--90 ml-auto' %>
+                </li>
+                <li style="width: 20%">
+                  <%= link_to "商品一覧", items_path, class: 'btn btn-outline-light text-light d-block w-90 ml-auto' %>
+                </li>
+                <li style="width: 20%">
+                  <%= link_to "カート", cart_items_path, class: 'btn btn-outline-light text-light d-block w-90 ml-auto' %>
+                </li>
+                <li style="width: 20%">
+                  <%= link_to "サインアウト", destroy_customer_session_path, method: :delete, class: 'btn btn-outline-light text-light d-block w-90 ml-auto' %>
+                </li>
+              <!-- 未ログイン -->
+              <% else %>
+                <li class="ml-lg-auto" style="width: 20%">
+                  <%= link_to "About", about_path, class: 'btn btn-outline-light text-light d-block w-80 ml-auto' %>
+                </li>
+                <li style="width: 20%">
+                  <%= link_to "商品一覧", items_path, class: 'btn btn-outline-light text-light d-block w-80 ml-auto' %>
+                </li>
+                <li style="width: 20%">
+                  <%= link_to "新規登録", new_customer_registration_path, class: 'btn btn-outline-light text-light d-block w-80 ml-auto' %>
+                </li>
+                <li style="width: 20%">
+                  <%= link_to "ログイン", new_customer_session_path, class: 'btn btn-outline-light text-light d-block w-80 ml-auto' %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- メイン -->
+    <main>
+      <%= yield %>
+    </main>
+    <!-- フッター -->
+    <footer>
+      <div class="container-fulled mt-5 bg-dark">
+        <div class="row">
+          <div class="mx-auto">
+            <p class="text-light mb-0">nagano cake</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
-
-<% if customer_signed_in? %>
- <li>
-   <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
- </li>
-<% elsif admin_signed_in? %>
- <li>
-   <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
- </li>
-<% else %>
- <li>
-   <%= link_to "新規登録", new_customer_registration_path %> 
- </li>
- <li>
-   <%= link_to "ログイン", new_customer_session_path %>
- </li>
-<% end %>

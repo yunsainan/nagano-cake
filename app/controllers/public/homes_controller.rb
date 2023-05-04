@@ -6,4 +6,7 @@ class Public::HomesController < ApplicationController
     @items = Item.order('id DESC').limit(4)
   end
   
+  def about
+  
+  end
 end

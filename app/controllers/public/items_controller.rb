@@ -1,5 +1,5 @@
 class Public::ItemsController < ApplicationController
-  # ログインしていない場合はサインインにリダイレクト(homes/top,aboutは除く)
+   # ログインしていない場合はサインインにリダイレクト(homes/top,aboutは除く)
   # before_action :authenticate_customer!
   before_action :select_genres, only: [:index, :show ]
 
@@ -22,5 +22,5 @@ class Public::ItemsController < ApplicationController
   def select_genres
     @genres = Genre.all
   end
-  
+
 end
