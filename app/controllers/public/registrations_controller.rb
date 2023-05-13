@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Public::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]　# 新規登録機能
+  before_action :configure_sign_up_params, only: [:create]# 新規登録機能
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -16,12 +16,12 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
-     super
+    super
   end
 
   # PUT /resource
   def update
-     super
+    super
   end
 
   # DELETE /resource
@@ -43,7 +43,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   #ログイン機能
    def configure_sign_up_params
-     devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+     devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute, :last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number])
    end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -54,7 +54,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   #新規投稿後のリダイレクト先の指定
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-  #   super(resource)
+   #super(resource)
       customers_my_page_path
   end
 
@@ -62,4 +62,5 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
 end
